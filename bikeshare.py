@@ -1,4 +1,3 @@
-import time
 import pandas as pd
 import numpy as np
 import prompts
@@ -69,7 +68,6 @@ def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
-    start_time = time.time()
 
     # Display the most common month
     month_int = df["month"].mode()[0]
@@ -84,7 +82,6 @@ def time_stats(df):
     most_common_hour = df["hour"].mode()[0]
     print("The most common hour is " + str(most_common_hour))
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
 
@@ -92,12 +89,10 @@ def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
-    start_time = time.time()
 
     # Display most commonly used start station
     most_common_start_station = df["Start Station"].mode().values[0]
     print("The most common start station is " + str(most_common_start_station))
-
 
     # Display most commonly used end station
     most_common_end_station = df["End Station"].mode().values[0]
@@ -107,8 +102,6 @@ def station_stats(df):
     most_common_trip = df["Trip"].mode().values[0]
     print("The most common trip is " + str(most_common_trip))
 
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
 
@@ -116,7 +109,6 @@ def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
-    start_time = time.time()
 
     # Display total travel time
     total_travel_time = df["Trip Duration"].sum()
@@ -126,8 +118,6 @@ def trip_duration_stats(df):
     mean_travel_time = df["Trip Duration"].mean()
     print("The mean travel time is " + str(mean_travel_time))
 
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
 
@@ -135,7 +125,6 @@ def user_stats(df, city):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
-    start_time = time.time()
 
     # Display counts of user types
     print("User Type Counts:")
@@ -159,8 +148,6 @@ def user_stats(df, city):
         most_common_birth_year = df["Birth Year"].mode().values[0]
         print("The most common birth year is " + str(most_common_birth_year))
 
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
 
