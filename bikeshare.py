@@ -258,6 +258,7 @@ def display_raw_data(df):
         start_index += 5
         end_index += 5
 
+        # End of file reached
         if start_index > num_rows:
             print("We have reached the end of the raw data!")
             break
