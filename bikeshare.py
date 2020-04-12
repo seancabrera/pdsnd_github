@@ -1,59 +1,13 @@
 import time
 import pandas as pd
 import numpy as np
+import prompts
 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
 valid_months = ["all", "january", "february", "march", "april", "may", "june"]
-
-def prompt_for_city():
-    """
-    Asks user to specify a city to analyze.
-
-    Returns:
-        (str) city - name of the city to analyze
-    """
-
-    valid_cities = ["chicago", "new york city", "washington"]
-    while True:
-        city = input("Enter a city to analyze (Chicago, New York City, or Washington): ").lower()
-        if city in valid_cities:
-            return city
-        else:
-            print("Invalid city entered.\n")
-
-def prompt_for_month():
-    """
-    Asks user to specify a month to filter on.
-
-    Returns:
-        (str) month - month to filter on
-    """
-
-    while True:
-        month = input("Enter a month to filter on (All, January, February, March, April, May or June): ").lower()
-        if month in valid_months:
-            return month
-        else:
-            print("Invalid month entered.\n")
-
-def prompt_for_day():
-    """
-    Asks user to specify a day to filter on.
-
-    Returns:
-        (str) day - day to filter on
-    """
-
-    valid_days = ["all", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    while True:
-        day = input("Enter a day to filter on (All, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or Sunday): ").lower()
-        if day in valid_days:
-            return day
-        else:
-            print("Invalid day entered.\n")
 
 def get_filters():
     """
@@ -66,9 +20,9 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
 
-    city = prompt_for_city()
-    month = prompt_for_month()
-    day = prompt_for_day()
+    city = prompts.prompt_for_city()
+    month = prompts.prompt_for_month(valid_months)
+    day = prompts.prompt_for_day()
 
     print('-'*40)
     return city, month, day
@@ -188,7 +142,6 @@ def user_stats(df, city):
     print(df["User Type"].value_counts())
     print()
 
-
     # Washington doesn't have gender or birth year data
     if city != "washington":
         # Display counts of gender
@@ -210,29 +163,6 @@ def user_stats(df, city):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-def prompt_for_raw_data(is_continue=False):
-    """
-    Prompts the user for whether to display raw data
-
-    Args:
-        (bool) is_continue - Whether this is a continuation prompt
-    """
-
-    print()
-
-    input_question = ""
-    if is_continue:
-        input_question = "Would you like to continue? Enter yes or no: "
-    else:
-         input_question = "Would you like to view the raw data? Enter yes or no: "
-
-    while True:
-        user_input = input(input_question).lower()
-        if user_input in ["yes", "no"]:
-            return user_input
-        else:
-            print("Invalid entry. Enter yes or no")
-
 
 def display_raw_data(df):
     """
@@ -243,7 +173,7 @@ def display_raw_data(df):
         (pandas.DataFrame) df - The raw data to display
     """
 
-    user_input = prompt_for_raw_data()
+    user_input = prompts.prompt_for_raw_data()
 
     start_index = 0
     end_index = 5
@@ -259,7 +189,8 @@ def display_raw_data(df):
             print("We have reached the end of the raw data!")
             break
 
-        user_input = prompt_for_raw_data(True)
+        user_input = prompts.prompt_for_raw_data(True)
+
 
 def main():
     while True:
